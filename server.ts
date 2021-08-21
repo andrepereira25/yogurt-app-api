@@ -1,4 +1,5 @@
-import * as express from 'express';    
+import * as express from 'express';   
+import { Application } from 'express'
 import { MongoDBConnection } from './mongo';
    
 //    app.get('/', (req, res) => {
@@ -22,7 +23,7 @@ import { MongoDBConnection } from './mongo';
 
 
 export class AppServer {
-    private _APP: any;
+    private _APP: Application;
     constructor(private PORT: number, private dbConnection: MongoDBConnection) {
         this._APP = express();
     }
