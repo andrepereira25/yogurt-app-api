@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 
 export interface BlogPost {
     id: string;
@@ -14,6 +14,6 @@ export const BlogPostSchema = new Schema<BlogPost>({
     title: { type: String, required: true },
     description: { type: String, required: true },
     content: { type: String, required: true },
-    imagePath: String,
+    imgPath: { type: String, required: true },
     date: { type: Number, required: true }
 })
