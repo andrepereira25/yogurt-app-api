@@ -8,7 +8,7 @@ const blogPosts: BlogPost[] = [
         id: uuid.v4(),
         title: "First Dan's yogurt shop opened.",
         content,
-        imgPath: "http://localhost:3000/file/beef.png",
+        imgPath: "http://localhost:3000/api/file/beef.png",
         description,
         date: new Date(2020, 4, 21).getTime()
     },
@@ -16,7 +16,7 @@ const blogPosts: BlogPost[] = [
         id: uuid.v4(),
         title: "The most desired yogurt in the country.",
         content,
-        imgPath: "http://localhost:3000/file/pork.png",
+        imgPath: "http://localhost:3000/api/file/pork.png",
         description,
         date: new Date(2021, 2, 5).getTime()
     },
@@ -24,7 +24,7 @@ const blogPosts: BlogPost[] = [
         id: uuid.v4(),
         title: "A six month success.",
         content,
-        imgPath: "/file/chicken.png",
+        imgPath: "http://localhost:3000/api/file/chicken.png",
         description,
         date: new Date(2020, 10, 13).getTime()
     }
