@@ -7,19 +7,19 @@ const yogurtsMocks: Yogurt[] = [
         id: uuid.v4(),
         flavour: "beef",
         content,
-        imgPath: "http://localhost:3000/file/yogurt.png"
+        imgPath: "http://localhost:3000/api/file/beef.png"
     },
     {
         id: uuid.v4(),
         flavour: "chicken",
         content,
-        imgPath: "http://localhost:3000/file/yogurt.png"
+        imgPath: "http://localhost:3000/api/file/chicken.png"
     },
     {
         id: uuid.v4(),
         flavour: "pork",
         content,
-        imgPath: "http://localhost:3000/file/yogurt.png"
+        imgPath: "http://localhost:3000/api/file/pork.png"
     }
 ]
 

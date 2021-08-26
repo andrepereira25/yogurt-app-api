@@ -5,6 +5,7 @@ const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
 const uuid = require("uuid");
+const fs = require("fs");
 class AppServer {
     PORT;
     dbConnection;
@@ -43,8 +44,18 @@ class AppServer {
             res.setHeader('Content-Security-Policy-Report-Only', "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'");
             next();
         });
+        this._APP.use(function (req, res, next) {
+            if (req.url.includes('/api/file')) {
+                next();
+                return;
+            }
+            const random = Math.floor(Math.random() * (3000 - 500 + 1)) + 500;
+            console.log(`A timeout of ${random}ms was added to ${req.url}`);
+            setTimeout(next, random);
+        });
         this.onUpload();
-        this.onGetFile();
+        this.onGetFiles();
+        this.onGetSlideshow();
         this.onSendEmail();
         this.onGetFlavour();
         this.onGetFlavours();
@@ -67,7 +78,7 @@ class AppServer {
             res.send(file);
         });
     }
-    onGetFile() {
+    onGetFiles() {
         this._APP.get('/api/file/:name', this.upload, (req, res) => {
             const fileName = req.params.name;
             const directoryPath = "./resources/files/";
@@ -77,6 +88,27 @@ class AppServer {
                         message: "Could not download the file. " + err,
                     });
                 }
+            });
+        });
+        this._APP.get('/api/file/slideshow/:name', this.upload, (req, res) => {
+            const fileName = req.params.name;
+            const directoryPath = "./resources/files/slideshow/";
+            res.download(directoryPath + fileName, fileName, (err) => {
+                if (err) {
+                    res.status(500).send({
+                        message: "Could not download the file. " + err,
+                    });
+                }
+            });
+        });
+    }
+    onGetSlideshow() {
+        this._APP.get('/api/slideshow', this.upload, (req, res) => {
+            const directoryPath = "./resources/files/slideshow";
+            fs.readdir(directoryPath, (err, files) => {
+                if (err)
+                    return res.status(500).send({ message: 'Could not get files' });
+                return res.status(200).send(files.map(file => `http://localhost:${this.PORT}/api/file/slideshow/${file}`));
             });
         });
     }
