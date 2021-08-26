@@ -53,6 +53,12 @@ class AppServer {
             console.log(`A timeout of ${random}ms was added to ${req.url}`);
             setTimeout(next, random);
         });
+        this._APP.get('/', this.upload, (req, res) => {
+            res.sendFile(__dirname + '/resources/index.html');
+            //    res.send({
+            //        status: "UP"
+            //    })
+        });
         this.onUpload();
         this.onGetFiles();
         this.onGetSlideshow();
